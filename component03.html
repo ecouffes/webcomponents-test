@@ -1,0 +1,39 @@
+<template>
+	<link rel="stylesheet" href="flatbtn.css">
+	<span class="flatBtn flatBtn--modifier">
+        <a href="#"><span class="flatBtn__txt flatBtn--modifier__txt">Flat Button</span></a>
+    </span>
+</template>
+
+<script>
+	(function(){
+
+		// 現在実行中のスクリプトノードを返す
+		// （webcomponents.js使用時は、_currentScriptにて参照）
+		var currentScript = document._currentScript;
+		//　スクリプトノードが記述されているdocumentを参照
+		var _document = currentScript.ownerDocument;
+
+		// DOM APIのHTMLElementインターフェースからオブジェクトを作成
+		var proto = Object.create(HTMLElement.prototype);
+
+		// 要素のインスタンスが作成された時に実行されるcallback関数
+		// ★ここでテンプレート要素内容をカスタム要素に流し込む命令を記述。
+		proto.createdCallback = function(){
+
+			// template要素とその要素内容を取得
+			var template = _document.querySelector('template');
+			var content = template.content;
+
+			// カスタム要素内にshadow DOMを作成、template要素内容を流し込む
+			var shadowRoot = this.createShadowRoot();
+			shadowRoot.appendChild(
+				document.importNode(content,true)
+			);
+		}
+
+		//カスタム要素(my-alert)を登録する。
+		document.registerElement('c-flatBtn',{prototype: proto});
+
+	}());
+</script>

@@ -1,0 +1,85 @@
+<template>
+
+	<style>
+		.flatBtn {
+			font-family: 'ヒラギノ角ゴ Pro W3','Hiragino Kaku Gothic Pro','メイリオ',Meiryo,'ＭＳ Ｐゴシック',sans-serif;
+			display: inline-block;
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+			border-bottom: 2px solid transparent;
+			border-radius: 3px;
+			opacity: 1;
+			text-align: center;
+			cursor: pointer;
+			transition: opacity .1s ease-in-out;
+		}
+		.flatBtn:hover {
+			opacity: .7;
+		}
+		.flatBtn > a {
+			display: block;
+			text-decoration: none;
+		}
+		.flatBtn__txt {
+			display: inline-block;
+			width: 100%;
+			font-weight: bold;
+		}
+		.flatBtn__txt:before {
+			display: inline-block;
+			margin-right: .25em;
+			vertical-align: -2px;
+			content: "";
+		}
+		.flatBtn--modifier {
+			width: 216px;
+			height: 34px;
+			border-bottom-color: #c7992a;
+			background-color: #ffda31;
+			line-height: 34px;
+		}
+		.flatBtn--modifier__txt {
+			color: #6e4519;
+			font-size: 13px;
+		}
+	</style>
+
+	<span class="flatBtn flatBtn--modifier">
+        <a href="#"><span class="flatBtn__txt flatBtn--modifier__txt">Flat Button</span></a>
+    </span>
+
+</template>
+
+<script>
+	(function(){
+
+		// 現在実行中のスクリプトノードを返す
+		// （webcomponents.js使用時は、_currentScriptにて参照）
+		var currentScript = document._currentScript;
+		//　スクリプトノードが記述されているdocumentを参照
+		var _document = currentScript.ownerDocument;
+
+		// DOM APIのHTMLElementインターフェースからオブジェクトを作成
+		var proto = Object.create(HTMLElement.prototype);
+
+		// 要素のインスタンスが作成された時に実行されるcallback関数
+		// ★ここでテンプレート要素内容をカスタム要素に流し込む命令を記述。
+		proto.createdCallback = function(){
+
+			// template要素とその要素内容を取得
+			var template = _document.querySelector('template');
+			var content = template.content;
+
+			// カスタム要素内にshadow DOMを作成、template要素内容を流し込む
+			var shadowRoot = this.createShadowRoot();
+			shadowRoot.appendChild(
+				document.importNode(content,true)
+			);
+		}
+
+		//カスタム要素(my-alert)を登録する。
+		document.registerElement('c-flatBtn',{prototype: proto});
+
+	}());
+</script>
