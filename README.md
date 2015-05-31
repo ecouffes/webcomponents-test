@@ -24,7 +24,11 @@
 とコンポネントコードを読み込みんで使用する。
 ※この機能を試すためには、要ローカルサーバ。
 
-## 簡単ローカルサーバインストール＆起動方法(simple-http-server)
-$ npm -g install simple-http-server
+## ローカルサーバ＆起動方法(mac)
 $ cd webComponent_test-master
-$ nserver
+$ python -m SimpleHTTPServer
+
+## chrome、および、それ以外のモダンブラウザでの比較
+http://localhost:8000/
+http://localhost:8000/polyfill.html
+http://localhost:8000/excss.html
