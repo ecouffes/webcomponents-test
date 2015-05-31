@@ -26,5 +26,5 @@
 
 ## 簡単ローカルサーバインストール＆起動方法(simple-http-server)
 $ npm -g install simple-http-server
-$ cd webComponent_test
+$ cd webComponent_test-master
 $ nserver
